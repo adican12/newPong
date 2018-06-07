@@ -14,7 +14,7 @@ public class settingsActivity extends AppCompatActivity {
     MediaPlayer song;
 
     SeekBar music_seekBar,soundfx_seekBar,speed_seekBar;
-
+    int speed;
     AudioManager am;
 
     @Override
@@ -55,6 +55,23 @@ public class settingsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 button.setVolume(progress,progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        speed_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                speed=progress;
             }
 
             @Override
