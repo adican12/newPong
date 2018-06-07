@@ -51,6 +51,23 @@ public class settingsActivity extends AppCompatActivity {
             }
         });
 
+        soundfx_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                button.setVolume(progress,progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         button= MediaPlayer.create(this,R.raw.button);
     }
     public void onOK(View view){
