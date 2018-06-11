@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPlay(View view){
         song.pause();
         button.start();
-        startActivity(new Intent(this, playActivity.class));
+        startActivity(new Intent(this, Game.class));
 
     }
 

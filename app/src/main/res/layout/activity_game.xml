@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+        <ImageView
+            android:id="@+id/left_pong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            app:srcCompat="@android:drawable/status_bar_item_background" />
+
+        <ImageView
+            android:id="@+id/right_pong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            app:srcCompat="@android:drawable/status_bar_item_background" />
+
+        <ImageView
+            android:id="@+id/Ball"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            app:srcCompat="@android:drawable/ic_notification_overlay" />
+
+        <TextView
+            android:id="@+id/Tap_to_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            tools:layout_editor_absoluteX="156dp"
+            tools:layout_editor_absoluteY="246dp"
+            android:text="Start"
+            tools:ignore="MissingConstraints" />
+
+
+
+</android.support.constraint.ConstraintLayout>
