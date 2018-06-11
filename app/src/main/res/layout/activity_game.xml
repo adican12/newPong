@@ -45,7 +45,7 @@
         android:layout_gravity="center_horizontal"
         tools:layout_editor_absoluteX="156dp"
         tools:layout_editor_absoluteY="246dp"
-        android:text="Tap to start "
+        android:text="Start"
         tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>

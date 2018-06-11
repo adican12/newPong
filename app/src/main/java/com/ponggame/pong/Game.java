@@ -28,7 +28,7 @@ public class Game extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout);
+        setContentView(R.layout.activity_game);
         play_pong();
 
         ////
@@ -37,9 +37,9 @@ public class Game extends AppCompatActivity{
 
     public void play_pong() {
 
-        Tap_To_Start = (TextView) findViewById(R.id.start_button);
-        pong_left = (ImageView) findViewById(R.id.pong_left);
-        pong_right = (ImageView) findViewById(R.id.pong_right);
+        Tap_To_Start = (TextView) findViewById(R.id.Tap_to_start);
+        pong_left = (ImageView) findViewById(R.id.left_pong);
+        pong_right = (ImageView) findViewById(R.id.right_pong);
         Ball = (ImageView) findViewById(R.id.Ball);
 
 
