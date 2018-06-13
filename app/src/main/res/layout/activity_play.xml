@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".playActivity">
 
+    <com.ponggame.pong.pongView
+        android:id="@+id/pongGame"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"

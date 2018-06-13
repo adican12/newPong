@@ -13,10 +13,14 @@ public class playActivity extends AppCompatActivity {
     MediaPlayer button,song;
     db _db;
     int songVolume,buttonVolume,speed;
+    pongView Pongview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        Pongview = findViewById(R.id.pongGame);
+
         _db = Room.databaseBuilder(getApplicationContext(),db.class,"clog")
                 .allowMainThreadQueries()
                 .build();
@@ -29,7 +33,7 @@ public class playActivity extends AppCompatActivity {
         button=MediaPlayer.create(this,R.raw.button);
         button.setVolume(buttonVolume,buttonVolume);
         speed=_db.entityDao().getVolume("speed");
-        // TODO: startgame()
+
     }
     public void back(View view){
         button.start();
