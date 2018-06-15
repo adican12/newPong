@@ -19,6 +19,8 @@ import com.ponggame.pong.storage.entity;
 import java.time.Instant;
 import java.util.List;
 
+//TODO: capital letter class (camel case all classes)
+// TODO: orintion portirit - fixed portrited in manifest
 public class MainActivity extends AppCompatActivity {
 
     MediaPlayer song, button;

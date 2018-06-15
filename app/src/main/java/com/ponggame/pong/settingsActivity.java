@@ -34,6 +34,8 @@ public class settingsActivity extends AppCompatActivity {
         music_seekBar= (SeekBar)findViewById(R.id.music_seekBar);
         soundfx_seekBar= (SeekBar)findViewById(R.id.soundfx_seekBar);
         speed_seekBar= (SeekBar)findViewById(R.id.speed_seekBar);
+
+        // TODO: replace with shered prefernce
         _db = Room.databaseBuilder(getApplicationContext(),db.class,"clog")
                 .allowMainThreadQueries()
                 .build();

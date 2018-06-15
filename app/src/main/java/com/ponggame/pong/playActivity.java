@@ -5,22 +5,27 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.ponggame.pong.storage.db;
 
 public class playActivity extends AppCompatActivity {
+    // TODO: mediaPlayer for background song
     MediaPlayer button,song;
+
+    // TODO: soundpool for sound FX
     db _db;
     int songVolume,buttonVolume,speed;
-    pongView Pongview;
+    pongView PongView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        PongView=findViewById(R.id.pongView);
 
-        Pongview = findViewById(R.id.pongGame);
-
+        // TODO: replace with shered prefernce
         _db = Room.databaseBuilder(getApplicationContext(),db.class,"clog")
                 .allowMainThreadQueries()
                 .build();
@@ -33,10 +38,13 @@ public class playActivity extends AppCompatActivity {
         button=MediaPlayer.create(this,R.raw.button);
         button.setVolume(buttonVolume,buttonVolume);
         speed=_db.entityDao().getVolume("speed");
+        Log.d("myapp","start game");
 
     }
+
     public void back(View view){
         button.start();
         startActivity(new Intent(this, MainActivity.class));
     }
+
 }
