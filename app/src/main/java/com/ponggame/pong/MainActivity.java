@@ -1,13 +1,12 @@
 package com.ponggame.pong;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.annotation.Nullable;
+import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,68 +15,65 @@ import android.view.View;
 import com.ponggame.pong.storage.db;
 import com.ponggame.pong.storage.entity;
 
-import java.time.Instant;
-import java.util.List;
-
-//TODO: capital letter class (camel case all classes)
-// TODO: orintion portirit - fixed portrited in manifest
 public class MainActivity extends AppCompatActivity {
 
-    MediaPlayer song, button;
-    AudioManager am;
-    db _db;
+    private static MyMusicRunnable mMusicPlayer;
+    private static MySFxRunnable mSoundEffects;
+
     int songVolume,buttonVolume;
+    SharedPreferences sharedpreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        _db = Room.databaseBuilder(getApplicationContext(),db.class,"clog")
-                .allowMainThreadQueries()
-                .build();
-//      TODO: check if app is running - go to this function only once
-//        startDatabsae();
-        songVolume=_db.entityDao().getVolume("music_seekBar");
-        song = MediaPlayer.create(this, R.raw.eviatar);
-        song.setLooping(true);
-        song.start();
-        song.setVolume(songVolume,songVolume);
-        buttonVolume=_db.entityDao().getVolume("soundfx_seekBar");
-        button=MediaPlayer.create(this,R.raw.button);
-        button.setVolume(buttonVolume,buttonVolume);
+
+        // using shared shared preferences to get volume settings
+        sharedpreferences = getSharedPreferences("pongData", Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+        songVolume=sharedpreferences.getInt("music_seekBar", 10);
+        buttonVolume=sharedpreferences.getInt("soundfx_seekBar", 10);
+
+        // start music
+        if (mMusicPlayer == null) {
+            mMusicPlayer = new MyMusicRunnable(this);
+        }
+        AsyncHandler.post(mMusicPlayer);
+
+        // start button
+        if (mSoundEffects == null) {
+            mSoundEffects = new MySFxRunnable(this);
+        }
         printDatabase();
     }
 
     public void onPlay(View view){
-        song.pause();
-        button.start();
-        startActivity(new Intent(this, playActivity.class));
+        mMusicPlayer.run();
+        mSoundEffects.run();
+        startActivity(new Intent(this, PlayActivity.class));
 
     }
 
     public void onSettings(View view){
-        song.pause();
-        button.start();
-        startActivity(new Intent(this, settingsActivity.class));
-    }
-
-    public void startDatabsae(){
-        Log.d("myapp","startDatabsae function");
-        _db.entityDao().deleteAll();
-        entity en1=new entity("music_seekBar",10);
-        entity en2=new entity("soundfx_seekBar",10);
-        entity en3=new entity("speed",10);
-        _db.entityDao().insertTodb(en1);
-        _db.entityDao().insertTodb(en2);
-        _db.entityDao().insertTodb(en3);
+        mMusicPlayer.run();
+        mSoundEffects.run();
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
     public void printDatabase(){
         Log.d("myapp"," ----- printDatabase function ----- ");
-        Log.d("myapp","songVolume: "+songVolume);
-        Log.d("myapp","buttonVolume: "+buttonVolume);
-        Log.d("myapp","speed: "+_db.entityDao().getVolume("speed") );
+        Log.d("myapp","songVolume: "+sharedpreferences.getInt("music_seekBar", 10));
+        Log.d("myapp","buttonVolume: "+sharedpreferences.getInt("soundfx_seekBar", 10));
+        Log.d("myapp","speed: "+sharedpreferences.getInt("speed", 10) );
         Log.d("myapp", " ----- end ----- ");
+    }
+
+    public static MyMusicRunnable getMusicPlayer() {
+        return mMusicPlayer;
+    }
+
+    public static MySFxRunnable getSoundEffects() {
+        return mSoundEffects;
     }
 }

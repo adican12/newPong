@@ -8,28 +8,28 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class pongView extends View {
+public class PongView extends View {
     Paint paintBall,paddlePaint;
     Paddle user,boot;
     Ball gameBall;
     float screenWidth,screenHeight;
 
-    public pongView(Context context) {
+    public PongView(Context context) {
         super(context);
         init();
     }
 
-    public pongView(Context context, @Nullable AttributeSet attrs) {
+    public PongView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public pongView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public PongView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    public pongView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public PongView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
@@ -46,9 +46,9 @@ public class pongView extends View {
         paddlePaint.setColor(Color.RED);
 
         // pojo create user , boot and ball
-        user=new Paddle(0.4f,0f,0.2f,0.01f);
-        boot=new Paddle(0.4f,0.99f,0.2f,0.01f);
-        gameBall=new Ball(0.5f,0.5f,0.02f);
+        user=new Paddle(0.4f,0f,0.2f,0.01f,paddlePaint);
+        boot=new Paddle(0.4f,0.99f,0.2f,0.01f,paddlePaint);
+        gameBall=new Ball(0.5f,0.5f,0.02f,paintBall);
 
 
     }
@@ -59,6 +59,15 @@ public class pongView extends View {
         // TODO: insert to ball paddle
         screenWidth = xNew;
         screenHeight = yNew;
+
+        user.setScreenWidth(xNew);
+        user.setScreenHeight(yNew);
+
+        boot.setScreenWidth(xNew);
+        boot.setScreenHeight(yNew);
+
+        gameBall.setScreenWidth(xNew);
+        gameBall.setScreenHeight(yNew);
     }
 
     @Override
@@ -67,14 +76,17 @@ public class pongView extends View {
         long t=System.currentTimeMillis();
 
         // ball
-        canvas.drawCircle(gameBall.x* screenWidth,gameBall.y*screenHeight,gameBall.radius*screenWidth,paintBall);
+//        canvas.drawCircle(gameBall.x* screenWidth,gameBall.y*screenHeight,gameBall.radius*screenWidth,paintBall);
+        gameBall.drawBall(t,canvas);
 
         // Boot
-        canvas.drawRect(boot.x*screenWidth ,boot.y*screenHeight,(boot.x+boot.width)*screenWidth,(boot.y+boot.height)*screenHeight,paddlePaint);
+//        canvas.drawRect(boot.x*screenWidth ,boot.y*screenHeight,(boot.x+boot.width)*screenWidth,(boot.y+boot.height)*screenHeight,paddlePaint);
+        boot.drawPaddle(t,canvas);
 
         // user
         canvas.drawRect(user.x*screenWidth ,user.y*screenHeight,(user.x+user.width)*screenWidth,(user.y+user.height)*screenHeight,paddlePaint);
 
+        postInvalidateOnAnimation();
     }
 
 

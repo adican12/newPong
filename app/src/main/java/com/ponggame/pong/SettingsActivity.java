@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
@@ -19,39 +20,40 @@ import com.ponggame.pong.storage.entity;
 
 import java.util.List;
 
-public class settingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     MediaPlayer button,song;
-    db _db;
+//    db _db;
+    MainActivity ma;
     SeekBar music_seekBar,soundfx_seekBar,speed_seekBar;
     int speed,songVolume,buttonVolume;
+    SharedPreferences sharedpreferences;
+    SharedPreferences.Editor editor;
+
+    private static final float MAX_VOLUME = 100f;
+    private final int DEFAULT_VOLUME_VALUE = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: change volume on media player dosen't work
         setContentView(R.layout.activity_settings);
-        button= MediaPlayer.create(this,R.raw.button);
-        music_seekBar= (SeekBar)findViewById(R.id.music_seekBar);
-        soundfx_seekBar= (SeekBar)findViewById(R.id.soundfx_seekBar);
-        speed_seekBar= (SeekBar)findViewById(R.id.speed_seekBar);
 
-        // TODO: replace with shered prefernce
-        _db = Room.databaseBuilder(getApplicationContext(),db.class,"clog")
-                .allowMainThreadQueries()
-                .build();
-        songVolume=_db.entityDao().getVolume("music_seekBar");
-        song = MediaPlayer.create(this, R.raw.eviatar);
-        song.setLooping(true);
-        song.start();
-        song.setVolume(songVolume,songVolume);
+        // get shared prefarence
+        sharedpreferences = getSharedPreferences("pongData", Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+        songVolume=sharedpreferences.getInt("music_seekBar", 10);        // getting Integer
+
+        ma.getMusicPlayer().run();
+
         music_seekBar.setProgress(songVolume);
         music_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                song.setVolume(progress,progress);
+                float output = progress / MAX_VOLUME;
+                MainActivity.getMusicPlayer().getMediaPlayer().setVolume(output, output);
 
-                entity Entity = new entity("music_seekBar",progress);
-                _db.entityDao().updateEntity(Entity);
+                editor.putInt("music_seekBar",progress);
+                editor.commit();
+
             }
 
             @Override
@@ -64,16 +66,18 @@ public class settingsActivity extends AppCompatActivity {
 
             }
         });
-        buttonVolume= _db.entityDao().getVolume("soundfx_seekBar");
-        button.setVolume(buttonVolume,buttonVolume);
+        buttonVolume=sharedpreferences.getInt("soundfx_seekBar", 10);        // getting Integer
+
         soundfx_seekBar.setProgress(buttonVolume);
         soundfx_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                button.setVolume(progress,progress);
+                float output = progress / MAX_VOLUME;
+                MainActivity.getSoundEffects().play(1);
+                //TODO: change volume sound fx
+                editor.putInt("soundfx_seekBar",progress);
+                editor.commit();
 
-                entity Entity = new entity("soundfx_seekBar",progress);
-                _db.entityDao().updateEntity(Entity);
             }
 
             @Override
@@ -86,13 +90,13 @@ public class settingsActivity extends AppCompatActivity {
 
             }
         });
-        speed= _db.entityDao().getVolume("speed");
+        speed=sharedpreferences.getInt("speed", 10);        // getting Integer
         speed_seekBar.setProgress(speed);
         speed_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                entity Entity = new entity("speed",progress);
-                _db.entityDao().updateEntity(Entity);
+                editor.putInt("speed",progress);
+                editor.commit();
             }
 
             @Override
@@ -107,8 +111,9 @@ public class settingsActivity extends AppCompatActivity {
         });
     }
     public void onOK(View view){
-        song.pause();
-        button.start();
+        ma.printDatabase();
+        ma.getMusicPlayer().run();
+        ma.getSoundEffects().run();
         startActivity(new Intent(this, MainActivity.class));
     }
 }
