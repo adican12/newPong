@@ -61,8 +61,18 @@ class MyMusicRunnable implements Runnable, MediaPlayer.OnCompletionListener {
 
     }
 
+
     public MediaPlayer getMediaPlayer() {
         return mPlayer;
     }
 
+    public void stopMusic(){
+        this.mPlayer.stop();
+        this.musicIsPlaying=false;
+    }
+
+    // TODO: not working !! crushing app 
+    public void changeVolume(int output){
+        this.mPlayer.setVolume(output,output);
+    }
 }

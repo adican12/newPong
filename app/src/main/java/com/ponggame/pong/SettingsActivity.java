@@ -21,21 +21,20 @@ import com.ponggame.pong.storage.entity;
 import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
-    MediaPlayer button,song;
-//    db _db;
     MainActivity ma;
     SeekBar music_seekBar,soundfx_seekBar,speed_seekBar;
     int speed,songVolume,buttonVolume;
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
-
     private static final float MAX_VOLUME = 100f;
-    private final int DEFAULT_VOLUME_VALUE = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        music_seekBar=findViewById(R.id.music_seekBar);
+        soundfx_seekBar=findViewById(R.id.soundfx_seekBar);
+        speed_seekBar=findViewById(R.id.speed_seekBar);
 
         // get shared prefarence
         sharedpreferences = getSharedPreferences("pongData", Context.MODE_PRIVATE);
@@ -43,7 +42,6 @@ public class SettingsActivity extends AppCompatActivity {
         songVolume=sharedpreferences.getInt("music_seekBar", 10);        // getting Integer
 
         ma.getMusicPlayer().run();
-
         music_seekBar.setProgress(songVolume);
         music_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             @Override
@@ -73,11 +71,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float output = progress / MAX_VOLUME;
-                MainActivity.getSoundEffects().play(1);
-                //TODO: change volume sound fx
-                editor.putInt("soundfx_seekBar",progress);
-                editor.commit();
+                MainActivity.getSoundEffects().getSoundPool().setVolume(R.raw.button,output,output);
 
+                editor.putInt("soundfx_seekBar",Float.floatToIntBits(output) );
+                editor.commit();
             }
 
             @Override
@@ -109,11 +106,11 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+
     }
     public void onOK(View view){
-        ma.printDatabase();
-        ma.getMusicPlayer().run();
-        ma.getSoundEffects().run();
+        ma.getMusicPlayer().stopMusic();
+        ma.getSoundEffects().play(R.raw.button);
         startActivity(new Intent(this, MainActivity.class));
     }
 }

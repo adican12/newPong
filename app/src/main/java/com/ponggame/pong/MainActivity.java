@@ -39,25 +39,31 @@ public class MainActivity extends AppCompatActivity {
         if (mMusicPlayer == null) {
             mMusicPlayer = new MyMusicRunnable(this);
         }
+        // TODO: change volume to stored value : songVolume
+//        mMusicPlayer.changeVolume(songVolume);
         AsyncHandler.post(mMusicPlayer);
 
         // start button
         if (mSoundEffects == null) {
             mSoundEffects = new MySFxRunnable(this);
         }
+        // TODO: change volume to stored value : buttonVolume
+//        mSoundEffects.getSoundPool().setVolume(R.raw.button,buttonVolume,buttonVolume);
         printDatabase();
     }
 
     public void onPlay(View view){
-        mMusicPlayer.run();
-        mSoundEffects.run();
+        mMusicPlayer.stopMusic();
+        // TODO: fix sound button
+        mSoundEffects.play(R.raw.button);
         startActivity(new Intent(this, PlayActivity.class));
 
     }
 
     public void onSettings(View view){
-        mMusicPlayer.run();
-        mSoundEffects.run();
+        mMusicPlayer.stopMusic();
+        // TODO: fix sound button
+        mSoundEffects.play(R.raw.button);
         startActivity(new Intent(this, SettingsActivity.class));
     }
 
