@@ -47,8 +47,8 @@ public class PongView extends View {
         paddlePaint.setColor(Color.RED);
 
         // pojo create user , boot and ball
-        user=new Paddle(0.4f,0f,0.2f,0.01f,paddlePaint);
-        boot=new Paddle(0.4f,0.99f,0.2f,0.01f,paddlePaint);
+        boot=new Paddle(0.4f,0f,0.2f,0.02f,paddlePaint);
+        user=new Paddle(0.4f,0.98f,0.2f,0.02f,paddlePaint);
         gameBall=new Ball(0.5f,0.5f,0.02f,paintBall);
 
 
@@ -77,7 +77,6 @@ public class PongView extends View {
         long t=System.currentTimeMillis();
 
         // ball
-//        canvas.drawCircle(gameBall.x* screenWidth,gameBall.y*screenHeight,gameBall.radius*screenWidth,paintBall);
         logic.Ball_position(gameBall,t);
         gameBall.drawBall(t,canvas);
 
@@ -87,15 +86,10 @@ public class PongView extends View {
         boot.drawPaddle(t,canvas);
 
         // user
-        // on touch
         logic.Player_Paddle_position(user,t);
         canvas.drawRect(user.x*screenWidth ,user.y*screenHeight,(user.x+user.width)*screenWidth,(user.y+user.height)*screenHeight,paddlePaint);
 
         postInvalidateOnAnimation();
     }
 
-
-    public void start(){
-        postInvalidateOnAnimation();
-    }
 }

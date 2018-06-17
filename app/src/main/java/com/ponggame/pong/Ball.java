@@ -8,6 +8,9 @@ public class Ball {
     long t0,v0;
     float screenWidth, screenHeight;
     Paint paintBall;
+    boolean moveDown;
+
+
     public void drawBall(long currentTime,Canvas canvas){
         canvas.drawCircle(this.x* screenWidth,this.y*screenHeight,this.radius*screenWidth,paintBall);
     }
