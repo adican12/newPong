@@ -8,6 +8,7 @@ public class Paddle {
     long t0,v0;
     float screenWidth, screenHeight;
     Paint paddlePaint;
+    boolean moveRight;
 
     public void drawPaddle(long currentTime,Canvas canvas){
         canvas.drawRect(this.x*screenWidth ,this.y*screenHeight,(this.x+this.width)*screenWidth,(this.y+this.height)*screenHeight,paddlePaint);
@@ -26,7 +27,8 @@ public class Paddle {
         this.paddlePaint=_paddlePaint;
         // defult value
         this.t0=System.currentTimeMillis();
-        this.v0=100;
+        this.v0=10;
+        this.moveRight=true;
         }
     public float getX() {
         return x;

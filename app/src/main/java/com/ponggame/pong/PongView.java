@@ -14,6 +14,7 @@ public class PongView extends View {
     Ball gameBall;
     float screenWidth,screenHeight;
     LogicCalc logic=new LogicCalc();
+
     public PongView(Context context) {
         super(context);
         init();

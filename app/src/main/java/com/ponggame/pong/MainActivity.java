@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onPlay(View view){
         mMusicPlayer.stopMusic();
-        // TODO: fix sound button
         mSoundEffects.play(R.raw.button);
         startActivity(new Intent(this, PlayActivity.class));
 
@@ -55,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onSettings(View view){
         mMusicPlayer.stopMusic();
-        // TODO: fix sound button
         mSoundEffects.play(R.raw.button);
         startActivity(new Intent(this, SettingsActivity.class));
     }
