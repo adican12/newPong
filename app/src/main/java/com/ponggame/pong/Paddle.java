@@ -11,12 +11,6 @@ public class Paddle {
 
     public void drawPaddle(long currentTime,Canvas canvas){
         canvas.drawRect(this.x*screenWidth ,this.y*screenHeight,(this.x+this.width)*screenWidth,(this.y+this.height)*screenHeight,paddlePaint);
-
-
-        x+=0.01f;
-        if (x*screenWidth > screenWidth ){
-            x-=0.01f;
-        }
     }
 
     public Paddle(float _width, float _height) {
@@ -30,7 +24,10 @@ public class Paddle {
         this.width = _width;
         this.height = _height;
         this.paddlePaint=_paddlePaint;
-    }
+        // defult value
+        this.t0=System.currentTimeMillis();
+        this.v0=100;
+        }
     public float getX() {
         return x;
     }

@@ -9,9 +9,7 @@ public class Ball {
     float screenWidth, screenHeight;
     Paint paintBall;
     public void drawBall(long currentTime,Canvas canvas){
-
         canvas.drawCircle(this.x* screenWidth,this.y*screenHeight,this.radius*screenWidth,paintBall);
-        this.y+=0.01f;
     }
 
     public void setScreenWidth(float screenWidth) {

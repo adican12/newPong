@@ -1,24 +1,13 @@
 package com.ponggame.pong;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.SeekBar;
 
-import com.ponggame.pong.storage.db;
-import com.ponggame.pong.storage.entity;
-
-import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
     MainActivity ma;

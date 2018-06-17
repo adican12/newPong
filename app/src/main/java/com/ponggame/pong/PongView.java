@@ -13,7 +13,7 @@ public class PongView extends View {
     Paddle user,boot;
     Ball gameBall;
     float screenWidth,screenHeight;
-
+    LogicCalc logic=new LogicCalc();
     public PongView(Context context) {
         super(context);
         init();
@@ -77,13 +77,17 @@ public class PongView extends View {
 
         // ball
 //        canvas.drawCircle(gameBall.x* screenWidth,gameBall.y*screenHeight,gameBall.radius*screenWidth,paintBall);
+        logic.Ball_position(gameBall,t);
         gameBall.drawBall(t,canvas);
 
         // Boot
 //        canvas.drawRect(boot.x*screenWidth ,boot.y*screenHeight,(boot.x+boot.width)*screenWidth,(boot.y+boot.height)*screenHeight,paddlePaint);
+        logic.Boot_Paddle_position(boot,t);
         boot.drawPaddle(t,canvas);
 
         // user
+        // on touch
+        logic.Player_Paddle_position(user,t);
         canvas.drawRect(user.x*screenWidth ,user.y*screenHeight,(user.x+user.width)*screenWidth,(user.y+user.height)*screenHeight,paddlePaint);
 
         postInvalidateOnAnimation();

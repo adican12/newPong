@@ -1,19 +1,12 @@
 package com.ponggame.pong;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
-import com.ponggame.pong.storage.db;
-import com.ponggame.pong.storage.entity;
 
 public class MainActivity extends AppCompatActivity {
 
