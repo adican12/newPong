@@ -8,30 +8,22 @@ public class LogicCalc{
     public LogicCalc() {}
 
     public void Boot_Paddle_position(Paddle boot, long t_new){
-
-//        Log.d("myapp","boot.x move right");
         if(boot.moveRight==true){
-//            Log.d("myapp","boot.x before : "+boot.x);
-            boot.x += (float) horizntelMove(boot.x, boot.v0,(t_new- boot.t0)/1000)/1000 ;
-//            Log.d("myapp","boot.x after : "+boot.x);
-            if(boot.x>0.8){
+            boot.x += (float) Move(boot.x, boot.v0,(t_new- boot.t0)/1000)/1000 ;
+
+            if(boot.x >= 0.8){
                 // TODO: change direction faster
-//                Log.d("myapp","change direction");
                 boot.moveRight=false;
                 boot.t0=System.currentTimeMillis();
             }
         }else{
-//            Log.d("myapp","boot.x move left ");
-
-            boot.x -= (float) horizntelMove(boot.x, boot.v0,(t_new- boot.t0)/1000)/1000 ;
-            if(boot.x<0){
+            boot.x -= (float) Move(boot.x, boot.v0,(t_new- boot.t0)/1000)/1000 ;
+            if(boot.x <= 0){
                 // TODO: change direction faster
-//                Log.d("myapp","change direction");
                 boot.moveRight=true;
                 boot.t0=System.currentTimeMillis();
             }
         }
-
         return;
     }
 
@@ -39,32 +31,47 @@ public class LogicCalc{
         return;
     }
 
-    public void Ball_position(Ball ball,long t_new){
+    public void Ball_position(Ball ball,Paddle boot,Paddle user,long t_new){
         Log.d("myapp"," - Ball_position - ");
-// TODO: Ball_position
+        // TODO: Ball_position
         if(ball.moveDown==true){
             Log.d("myapp","Ball move down ");
-//        ball.x +=
-//        ball.y +=
-
+            ball.y += (float)Move( ball.y , ball.v0 , (t_new- ball.t0)/1000 ) / 1000;
+            //        ball.x +=
+            if(ball.y >= 0.98f ){
+                Log.d("myapp","chceck hits down");
+                if( hits (ball,user) ){
+                    Log.d("myapp","__________________hits down________________");
+                }
+            }
         }else{
             Log.d("myapp","Ball move up ");
 //        ball.x +=
-//        ball.y +=
+            ball.y -= (float)Move( ball.y , ball.v0 , (t_new- ball.t0)/1000 ) / 1000;
+            if( ball.y >= 0.02f  ){
+                Log.d("myapp","chceck hits up");
 
+                if( hits (ball,boot) ){
+                    Log.d("myapp","__________________hits up__________________");
+                }
+            }
         }
-
-
         return;
     }
 
-    private double calculateYLocation(float v0, long t0, long t1) {
+    // TODO: calculate vertical move - ball move
+    private double vertivalMove(float y,float v, float t) {
         // time is in milliseconds, formula in seconds
-        return v0 * animationSpeedFactor * (t1 - t0) / 1000;
+//        return v0 * animationSpeedFactor * (t1 - t0) / 1000;
+        return  0;
     }
 
-    private float horizntelMove(float x,float v, float t){
+    private float Move(float x,float v, float t){
         return v*t;
     }
 
+    private boolean hits(Ball ball,Paddle user){
+
+        return false;
+    }
 }

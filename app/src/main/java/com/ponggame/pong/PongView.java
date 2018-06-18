@@ -76,18 +76,18 @@ public class PongView extends View {
         //        canvas.drawColor(0xf303f300);
         long t=System.currentTimeMillis();
 
-        // ball
-        logic.Ball_position(gameBall,t);
-        gameBall.drawBall(t,canvas);
-
         // Boot
 //        canvas.drawRect(boot.x*screenWidth ,boot.y*screenHeight,(boot.x+boot.width)*screenWidth,(boot.y+boot.height)*screenHeight,paddlePaint);
         logic.Boot_Paddle_position(boot,t);
-        boot.drawPaddle(t,canvas);
+        boot.drawPaddle(canvas);
 
         // user
         logic.Player_Paddle_position(user,t);
         canvas.drawRect(user.x*screenWidth ,user.y*screenHeight,(user.x+user.width)*screenWidth,(user.y+user.height)*screenHeight,paddlePaint);
+
+        // ball
+        logic.Ball_position(gameBall,boot,user,t);
+        gameBall.drawBall(canvas);
 
         postInvalidateOnAnimation();
     }

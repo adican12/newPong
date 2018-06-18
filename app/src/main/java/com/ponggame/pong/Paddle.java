@@ -10,7 +10,7 @@ public class Paddle {
     Paint paddlePaint;
     boolean moveRight;
 
-    public void drawPaddle(long currentTime,Canvas canvas){
+    public void drawPaddle(Canvas canvas){
         canvas.drawRect(this.x*screenWidth ,this.y*screenHeight,(this.x+this.width)*screenWidth,(this.y+this.height)*screenHeight,paddlePaint);
     }
 

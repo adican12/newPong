@@ -11,7 +11,7 @@ public class Ball {
     boolean moveDown;
 
 
-    public void drawBall(long currentTime,Canvas canvas){
+    public void drawBall(Canvas canvas){
         canvas.drawCircle(this.x* screenWidth,this.y*screenHeight,this.radius*screenWidth,paintBall);
     }
 
@@ -58,6 +58,11 @@ public class Ball {
         this.y = _y;
         this.radius = _radius;
         this.paintBall= _paintBall;
+        // defult value
+        this.t0=System.currentTimeMillis();
+        this.v0=10;
+        this.moveDown=true;
+
     }
 
 
