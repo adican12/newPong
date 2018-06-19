@@ -1,28 +1,35 @@
 package com.ponggame.pong;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 
 public class Paddle {
     float x,y, width,height;
     long t0,v0;
     float screenWidth, screenHeight;
+    Paint paddlePaint;
+    boolean moveRight;
 
-    public void drawPaddle(long currentTime,Canvas canvas){
-
+    public void drawPaddle(Canvas canvas){
+        canvas.drawRect(this.x*screenWidth ,this.y*screenHeight,(this.x+this.width)*screenWidth,(this.y+this.height)*screenHeight,paddlePaint);
     }
 
-    public Paddle(float width, float height) {
-        this.width = width;
-
-        this.height = height;
+    public Paddle(float _width, float _height) {
+        this.width = _width;
+        this.height = _height;
     }
 
-    public Paddle(float x, float y, float width, float height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
+    public Paddle(float _x, float _y, float _width, float _height,Paint _paddlePaint) {
+        this.x = _x;
+        this.y = _y;
+        this.width = _width;
+        this.height = _height;
+        this.paddlePaint=_paddlePaint;
+        // defult value
+        this.t0=System.currentTimeMillis();
+        this.v0=10;
+        this.moveRight=true;
+        }
     public float getX() {
         return x;
     }
@@ -39,13 +46,6 @@ public class Paddle {
         this.y = y;
     }
 
-    public float getWidth() {
-        return width;
-    }
-
-    public void setWidth(float width) {
-        this.width = width;
-    }
 
     public float getHeight() {
         return height;
@@ -55,4 +55,12 @@ public class Paddle {
         this.height = height;
     }
 
+
+    public void setScreenWidth(float screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    public void setScreenHeight(float screenHeight) {
+        this.screenHeight = screenHeight;
+    }
 }

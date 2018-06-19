@@ -1,0 +1,106 @@
+package com.ponggame.pong;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+
+public class PongView extends View {
+    Paint paintBall,paddlePaint;
+    Paddle user,boot;
+    Ball gameBall;
+    LogicCalc logic=new LogicCalc();
+
+    public PongView(Context context) {
+        super(context);
+        init();
+    }
+
+    public PongView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public PongView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    public PongView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    private void init(){
+        // Paint blue
+        paintBall=new Paint();
+        paintBall.setAntiAlias(true);
+        paintBall.setColor(Color.BLUE);
+
+        // Paint red
+        paddlePaint=new Paint();
+        paddlePaint.setAntiAlias(true);
+        paddlePaint.setColor(Color.RED);
+
+        // pojo create user , boot and ball
+        boot=new Paddle(0.4f,0f,0.2f,0.02f,paddlePaint);
+        user=new Paddle(0.4f,0.98f,0.2f,0.02f,paddlePaint);
+        gameBall=new Ball(0.5f,0.5f,0.02f,paintBall);
+        }
+
+    @Override
+    protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld){
+        super.onSizeChanged(xNew, yNew, xOld, yOld);
+
+        // set screen width and height to pojo
+        user.setScreenWidth(xNew);
+        user.setScreenHeight(yNew);
+        boot.setScreenWidth(xNew);
+        boot.setScreenHeight(yNew);
+        gameBall.setScreenWidth(xNew);
+        gameBall.setScreenHeight(yNew);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN ||
+                event.getAction() == MotionEvent.ACTION_MOVE) {
+                float tmp_x=event.getX()/1000;
+                if(tmp_x>0.8f){
+                    tmp_x=0.8f;
+                }
+                user.setX(tmp_x);
+            postInvalidateOnAnimation();
+            return true;
+        } else {
+//            isTouched = false;
+        }
+        // will trigger a new call to onDraw()
+        postInvalidateOnAnimation();
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        long t=System.currentTimeMillis();
+
+        // Boot
+        logic.Boot_Paddle_position(boot,t);
+        boot.drawPaddle(canvas);
+
+        // user
+//        logic.Player_Paddle_position(user,t);
+        user.drawPaddle(canvas);
+
+        // ball
+        logic.Ball_position(gameBall,boot,user,t);
+        gameBall.drawBall(canvas);
+
+        postInvalidateOnAnimation();
+    }
+
+}

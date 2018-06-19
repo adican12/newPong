@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pong_bg"
-    tools:context=".playActivity">
+    tools:context=".PlayActivity">
 
-    <com.ponggame.pong.pongView
+    <com.ponggame.pong.PongView
         android:id="@+id/pongView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

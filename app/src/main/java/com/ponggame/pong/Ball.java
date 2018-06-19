@@ -1,14 +1,27 @@
 package com.ponggame.pong;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 
 public class Ball {
     float x,y,radius;
     long t0,v0;
     float screenWidth, screenHeight;
+    Paint paintBall;
+    boolean moveDown;
 
-    public void drawBall(long currentTime,Canvas canvas){
 
+    public void drawBall(Canvas canvas){
+        canvas.drawCircle(this.x* screenWidth,this.y*screenHeight,this.radius*screenWidth,paintBall);
+    }
+
+    public void setScreenWidth(float screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+
+    public void setScreenHeight(float screenHeight) {
+        this.screenHeight = screenHeight;
     }
 
     public float getX() {
@@ -40,9 +53,17 @@ public class Ball {
         this.radius = radius;
     }
 
-    public Ball(float x, float y, float radius) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
+    public Ball(float _x, float _y, float _radius,Paint _paintBall) {
+        this.x = _x;
+        this.y = _y;
+        this.radius = _radius;
+        this.paintBall= _paintBall;
+        // defult value
+        this.t0=System.currentTimeMillis();
+        this.v0=10;
+        this.moveDown=true;
+
     }
+
+
 }
