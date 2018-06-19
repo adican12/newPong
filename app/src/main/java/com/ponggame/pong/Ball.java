@@ -10,6 +10,10 @@ public class Ball {
     Paint paintBall;
     boolean moveDown;
 
+    // add angle
+    float angleRad;
+    float angleDeg;
+
 
     public void drawBall(Canvas canvas){
         canvas.drawCircle(this.x* screenWidth,this.y*screenHeight,this.radius*screenWidth,paintBall);
@@ -62,7 +66,8 @@ public class Ball {
         this.t0=System.currentTimeMillis();
         this.v0=10;
         this.moveDown=true;
-
+        this.angleRad=0;
+//        this.angleRad=(float)Math.toRadians(90.0);
     }
 
 
