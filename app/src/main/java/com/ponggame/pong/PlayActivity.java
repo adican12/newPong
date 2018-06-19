@@ -21,7 +21,7 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         PongView=findViewById(R.id.pongView);
-
+        // TODO: add speed  ball.v0 setV0()
         // TODO: add sound fx
         // shared preferences
 //        sharedpreferences = getSharedPreferences("pongData", Context.MODE_PRIVATE);

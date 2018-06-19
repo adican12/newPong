@@ -5,9 +5,13 @@ import android.graphics.Paint;
 
 public class Ball {
     float x,y,radius;
-    long t0,v0;
+    long t0;
+
+    float v0;
+
     float screenWidth, screenHeight;
     Paint paintBall;
+    float radAngle;
     boolean moveDown;
 
 
@@ -56,13 +60,21 @@ public class Ball {
     public Ball(float _x, float _y, float _radius,Paint _paintBall) {
         this.x = _x;
         this.y = _y;
+
         this.radius = _radius;
         this.paintBall= _paintBall;
         // defult value
+
+        //remove t
         this.t0=System.currentTimeMillis();
-        this.v0=10;
+
+        // speed
+        this.v0=0.01f;
+
         this.moveDown=true;
 
+        // ball start stright down
+        this.radAngle=90f;
     }
 
 

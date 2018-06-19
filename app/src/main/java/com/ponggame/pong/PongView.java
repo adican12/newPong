@@ -64,7 +64,7 @@ public class PongView extends View {
         gameBall.setScreenWidth(xNew);
         gameBall.setScreenHeight(yNew);
     }
-
+    // TODO: on douball touch evnt  -- pause game
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN ||
@@ -87,7 +87,7 @@ public class PongView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         long t=System.currentTimeMillis();
-
+        // TODO: add sound fx
         // Boot
         logic.Boot_Paddle_position(boot,t);
         boot.drawPaddle(canvas);
