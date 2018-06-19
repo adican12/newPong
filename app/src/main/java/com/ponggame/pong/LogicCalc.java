@@ -27,32 +27,29 @@ public class LogicCalc{
         return;
     }
 
-    public void Player_Paddle_position(Paddle user,long t_new){
-        return;
-    }
+//    public void Player_Paddle_position(Paddle user,long t_new){
+//
+//        return;
+//    }
 
     public void Ball_position(Ball ball,Paddle boot,Paddle user,long t_new){
-        Log.d("myapp"," - Ball_position - ");
         // TODO: Ball_position
         if(ball.moveDown==true){
-            Log.d("myapp","Ball move down ");
-            ball.y += (float)Move( ball.y , ball.v0 , (t_new- ball.t0)/1000 ) / 1000;
+            ball.y += Move( ball.y , ball.v0 , (t_new- ball.t0)/1000 ) / 1000;
             //        ball.x +=
             if(ball.y >= 0.98f ){
-                Log.d("myapp","chceck hits down");
                 if( hits (ball,user) ){
                     Log.d("myapp","__________________hits down________________");
+                    ball.moveDown=false;
                 }
             }
         }else{
-            Log.d("myapp","Ball move up ");
 //        ball.x +=
-            ball.y -= (float)Move( ball.y , ball.v0 , (t_new- ball.t0)/1000 ) / 1000;
+            ball.y -= Move( ball.y , ball.v0 , (t_new- ball.t0)/1000 ) / 1000;
             if( ball.y >= 0.02f  ){
-                Log.d("myapp","chceck hits up");
-
                 if( hits (ball,boot) ){
                     Log.d("myapp","__________________hits up__________________");
+                    ball.moveDown=true;
                 }
             }
         }
@@ -70,8 +67,11 @@ public class LogicCalc{
         return v*t;
     }
 
-    private boolean hits(Ball ball,Paddle user){
-
-        return false;
+    private boolean hits(Ball ball,Paddle paddle){
+        if ( ball.getX() >= paddle.getX() &&  ball.getX() <= paddle.getX()+0.2f ){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

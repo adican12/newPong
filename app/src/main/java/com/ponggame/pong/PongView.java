@@ -6,13 +6,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class PongView extends View {
     Paint paintBall,paddlePaint;
     Paddle user,boot;
     Ball gameBall;
-    float screenWidth,screenHeight;
     LogicCalc logic=new LogicCalc();
 
     public PongView(Context context) {
@@ -50,40 +50,51 @@ public class PongView extends View {
         boot=new Paddle(0.4f,0f,0.2f,0.02f,paddlePaint);
         user=new Paddle(0.4f,0.98f,0.2f,0.02f,paddlePaint);
         gameBall=new Ball(0.5f,0.5f,0.02f,paintBall);
-
-
-    }
+        }
 
     @Override
     protected void onSizeChanged(int xNew, int yNew, int xOld, int yOld){
         super.onSizeChanged(xNew, yNew, xOld, yOld);
-        // TODO: insert to ball paddle
-        screenWidth = xNew;
-        screenHeight = yNew;
 
+        // set screen width and height to pojo
         user.setScreenWidth(xNew);
         user.setScreenHeight(yNew);
-
         boot.setScreenWidth(xNew);
         boot.setScreenHeight(yNew);
-
         gameBall.setScreenWidth(xNew);
         gameBall.setScreenHeight(yNew);
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN ||
+                event.getAction() == MotionEvent.ACTION_MOVE) {
+                float tmp_x=event.getX()/1000;
+                if(tmp_x>0.8f){
+                    tmp_x=0.8f;
+                }
+                user.setX(tmp_x);
+            postInvalidateOnAnimation();
+            return true;
+        } else {
+//            isTouched = false;
+        }
+        // will trigger a new call to onDraw()
+        postInvalidateOnAnimation();
+        return super.onTouchEvent(event);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
-        //        canvas.drawColor(0xf303f300);
         long t=System.currentTimeMillis();
 
         // Boot
-//        canvas.drawRect(boot.x*screenWidth ,boot.y*screenHeight,(boot.x+boot.width)*screenWidth,(boot.y+boot.height)*screenHeight,paddlePaint);
         logic.Boot_Paddle_position(boot,t);
         boot.drawPaddle(canvas);
 
         // user
-        logic.Player_Paddle_position(user,t);
-        canvas.drawRect(user.x*screenWidth ,user.y*screenHeight,(user.x+user.width)*screenWidth,(user.y+user.height)*screenHeight,paddlePaint);
+//        logic.Player_Paddle_position(user,t);
+        user.drawPaddle(canvas);
 
         // ball
         logic.Ball_position(gameBall,boot,user,t);

@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 
 public class PlayActivity extends AppCompatActivity {
 //    // TODO: mediaPlayer for background song
@@ -20,6 +21,8 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         PongView=findViewById(R.id.pongView);
+
+        // TODO: add sound fx
         // shared preferences
 //        sharedpreferences = getSharedPreferences("pongData", Context.MODE_PRIVATE);
 //        editor = sharedpreferences.edit();
@@ -28,8 +31,5 @@ public class PlayActivity extends AppCompatActivity {
 //        MainActivity.getMusicPlayer().getMediaPlayer().setVolume(songVolume, songVolume);
 
         Log.d("myapp","start game");
-
     }
-
-
 }
