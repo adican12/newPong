@@ -4,11 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 public class Paddle {
+
+    // TODO: change to private
     float x,y, width,height;
     long t0,v0;
     float screenWidth, screenHeight;
     Paint paddlePaint;
     boolean moveRight;
+    int goals;
 
     public void drawPaddle(Canvas canvas){
         canvas.drawRect(this.x*screenWidth ,this.y*screenHeight,(this.x+this.width)*screenWidth,(this.y+this.height)*screenHeight,paddlePaint);
@@ -28,8 +31,10 @@ public class Paddle {
         // defult value
         this.t0=System.currentTimeMillis();
         this.v0=10;
+        this.goals=0;
         this.moveRight=true;
-        }
+    }
+
     public float getX() {
         return x;
     }
@@ -54,7 +59,6 @@ public class Paddle {
     public void setHeight(float height) {
         this.height = height;
     }
-
 
     public void setScreenWidth(float screenWidth) {
         this.screenWidth = screenWidth;

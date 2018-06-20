@@ -27,7 +27,7 @@ public class LogicCalc{
     }
 
     // TODO: remove long t_new from Ball_position
-    public void Ball_position(Ball ball,Paddle boot,Paddle user,long t_new){
+    public void Ball_position(Ball ball,Paddle boot,Paddle user){
         // TODO: Ball_position
 
 
@@ -43,9 +43,10 @@ public class LogicCalc{
                 }
 
                 if(ball.y > 1f){
-//                    paddle boot get score
-//                    reset
-                    ball=new Ball(0.5f,0.5f,0.02f,ball.paintBall);
+//                     ---- Reeset ----
+                    ball.setX(0.5f);
+                    ball.setY(0.5f);
+                    ball.radAngle=90;
                 }
             }
 
@@ -54,21 +55,18 @@ public class LogicCalc{
                 if( hits (ball,boot) ){
                     Log.d("myapp","__________________hits down________________");
                     // TODO: add sound fx
-
                 }
 
                 if(ball.y < 0f){
-//                    paddle user get score
-//                    reset
-                    Ball tmp=new Ball(0.5f,0.5f,0.02f,ball.paintBall);
-                    ball=tmp;
+//                    ---- Reeset ----
+                    ball.setX(0.5f);
+                    ball.setY(0.5f);
+                    ball.radAngle=270;
                 }
-
             }
 
         if(ball.x >= 0.97f  ){
             // inside fun hits update ball degree value
-//      Log.d("myapp","__________________hits right wall__________________");
             // TODO: add sound fx
             // right wall convertor
             if(ball.radAngle > 180) {
@@ -76,41 +74,27 @@ public class LogicCalc{
             }else{
                 ball.radAngle +=90;
             }
-
         }
 
         if( ball.x <= 0.05f  ){
-                // left wall hits
-                // oppsite angle
+            // opposite angle
+            // left wall hits
             // TODO: add sound fx
             if(ball.radAngle > 180) {
                 ball.radAngle +=90;
             }else{
                 ball.radAngle -=90;
             }
-
         }
-
-
-
         return;
     }
 
 
-        // TODO: calculate vertical move - ball move
+    // TODO: calculate vertical move - ball move
     private void verticalMove(Ball ball)
     {
-        Log.d("myapp","ball before   x: "+ball.x+" ,y: "+ball.y);
-
-        float distance=ball.v0;
-        Log.d("myapp","ball distance: "+distance);
-
-        ball.x += (float) (distance*Math.cos(Math.toRadians(ball.radAngle)));
-
-        ball.y += (float) (distance*Math.sin(Math.toRadians(ball.radAngle)));
-
-        Log.d("myapp","ball after   x: "+ball.x+" ,y: "+ball.y);
-
+        ball.x += (float) (ball.v0*Math.cos(Math.toRadians(ball.radAngle)));
+        ball.y += (float) (ball.v0*Math.sin(Math.toRadians(ball.radAngle)));
     }
 
 
@@ -122,39 +106,39 @@ public class LogicCalc{
         float dividerPaddle=0.05f;
         int i;
 
-        for(i=0;i<dividerPaddle*100;i++) {
+        for(i=1;i < (dividerPaddle*100) + 1 ;i++) {
             if (ball.getX() >= paddle.getX() && ball.getX() <= paddle.getX() + i*dividerPaddle) {
             /// check the divide part where the ball hit and update degree value
                 if(ball.radAngle < 180 ){
-                    if(i==0){
-                        ball.radAngle = 220;
-                    }
-                    else if(i==1){
-                        ball.radAngle = 240;
+                    if(i==1){
+                        ball.radAngle = 210;
                     }
                     else if(i==2){
-                        ball.radAngle = 270;
+                        ball.radAngle = 240;
                     }
                     else if(i==3){
-                        ball.radAngle = 340;
+                        ball.radAngle = 270;
                     }
                     else if(i==4){
                         ball.radAngle = 300;
                     }
-                }else{
-                    if(i==0){
-                        ball.radAngle = 140;
+                    else if(i==5){
+                        ball.radAngle = 330;
                     }
-                    else if(i==1){
-                        ball.radAngle = 120;
+                }else{
+                    if(i==1){
+                        ball.radAngle = 150;
                     }
                     else if(i==2){
-                        ball.radAngle = 90;
+                        ball.radAngle = 120;
                     }
                     else if(i==3){
-                        ball.radAngle = 60;
+                        ball.radAngle = 90;
                     }
                     else if(i==4){
+                        ball.radAngle = 60;
+                    }
+                    else if(i==5){
                         ball.radAngle = 30;
                     }
                 }
@@ -163,9 +147,5 @@ public class LogicCalc{
         }
         return false;
     }
-
-
-
-
 
 }
