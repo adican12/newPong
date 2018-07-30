@@ -2,10 +2,8 @@
 
 pong game
 
-short description
 A simple Ball pong 2D Game on Java, written on Android-Studio IDE.
 
-long description
 
 A single ball pong 2D game on Java,There is 2 players the first one is the user
 and the second one is a bot(the computer).
