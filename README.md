@@ -1,5 +1,4 @@
 # newPong
-initial
 
 pong game
 
