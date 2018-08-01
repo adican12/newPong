@@ -90,7 +90,7 @@ public class LogicCalc{
                 return;
             }
 
-            /// CHECK FOR WALLS
+            /// CHECK FOR right WALLS
             if (ball.x >= 0.97555500f ) {
                 // inside fun hits update ball degree value
 //                if(ball.recentHits==false) {
@@ -102,6 +102,7 @@ public class LogicCalc{
 //                }
             }
 
+        /// CHECK FOR left WALLS
             if (ball.x <= 0.05555000f) {
 //                if(ball.recentHits==false) {
                     if (hitsWall(ball)) {
