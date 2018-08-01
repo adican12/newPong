@@ -97,9 +97,10 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
     }
+    // press onOK button - go back to main activity
     public void onOK(View view){
         ma.getMusicPlayer().stopMusic();
-        ma.getSoundEffects().play(R.raw.button);
+        ma.getSoundEffects().play(R.raw.button,(float) buttonVolume);
         startActivity(new Intent(this, MainActivity.class));
     }
 }

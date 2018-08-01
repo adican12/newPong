@@ -13,7 +13,8 @@ public class MainActivity extends AppCompatActivity {
     private static MyMusicRunnable mMusicPlayer;
     private static MySFxRunnable mSoundEffects;
 
-    int songVolume,buttonVolume;
+    int songVolume;
+    float buttonVolume;
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences("pongData", Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
         songVolume=sharedpreferences.getInt("music_seekBar", 10);
-        buttonVolume=sharedpreferences.getInt("soundfx_seekBar", 10);
+        buttonVolume=(float) sharedpreferences.getInt("soundfx_seekBar", 10);
 
         // start music
         if (mMusicPlayer == null) {
@@ -45,18 +46,21 @@ public class MainActivity extends AppCompatActivity {
         printDatabase();
     }
 
+    // press onPlay button - start new acitivity
     public void onPlay(View view){
         mMusicPlayer.stopMusic();
-        mSoundEffects.play(R.raw.button);
+        mSoundEffects.play(R.raw.button,buttonVolume);
         startActivity(new Intent(this, PlayActivity.class));
 
     }
 
+    // press onSettings button - start new acitivity
     public void onSettings(View view){
         mMusicPlayer.stopMusic();
-        mSoundEffects.play(R.raw.button);
+        mSoundEffects.play(R.raw.button,buttonVolume);
         startActivity(new Intent(this, SettingsActivity.class));
     }
+
 
     public void printDatabase(){
         Log.d("myapp"," ----- printDatabase function ----- ");
