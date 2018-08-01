@@ -17,3 +17,4 @@ The ball move between the pedals until there is an score the ball pass over the 
 after 3 score the game is over.
 
 
+https://docs.google.com/document/d/1wY9DAs2o5ValX8_llN0QZOwBDzRhsfWDXSMlu_20buw/edit
