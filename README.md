@@ -18,3 +18,6 @@ after 3 score the game is over.
 
 
 https://docs.google.com/document/d/1wY9DAs2o5ValX8_llN0QZOwBDzRhsfWDXSMlu_20buw/edit
+
+<img src="/pong_bg.jpg" width="144">            
+
