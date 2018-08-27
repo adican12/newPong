@@ -101,18 +101,19 @@ public class PongView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         long t=System.currentTimeMillis();
-        // TODO: add sound fx
-        // Boot
-        logic.Boot_Paddle_position(boot,t);
-        boot.drawPaddle(canvas);
+        if(gameBall.t0-t < 500) {
+            // Boot
+            logic.Boot_Paddle_position(boot, t);
+            boot.drawPaddle(canvas);
 
-        // user
-        user.drawPaddle(canvas);
+            // user
+            user.drawPaddle(canvas);
 
-        // ball
-        logic.Ball_position(gameBall,boot,user,t);
-        gameBall.drawBall(canvas);
-
+            // ball
+            logic.Ball_position(gameBall, boot, user, t);
+            gameBall.drawBall(canvas);
+            gameBall.t0=System.currentTimeMillis();
+        }
         postInvalidateOnAnimation();
     }
 
